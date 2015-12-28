@@ -24,6 +24,7 @@ repositories {
 
 dependencies {
     compile 'com.google.guava:guava:18.0'
+    compile 'uk.jamierocks:eventbus:1.1'
 }
 
 processResources {
