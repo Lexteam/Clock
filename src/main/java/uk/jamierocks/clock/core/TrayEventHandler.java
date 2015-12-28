@@ -24,15 +24,17 @@
 package uk.jamierocks.clock.core;
 
 import uk.jamierocks.clock.core.event.tray.TrayEvent;
+import uk.jamierocks.eventbus.IDedicatedListener;
 import uk.jamierocks.eventbus.Listener;
+import uk.jamierocks.eventbus.ListenerHandler;
 
 /**
  * The event listener.
  */
-public class EventListener {
+public class TrayEventHandler implements IDedicatedListener<TrayEvent> {
 
-    @Listener
-    public void onTrayEvent(TrayEvent event) {
+    @Override
+    public void process(TrayEvent event) {
         switch (event.getType()) {
             case TOGGLE_VISABLIITY:
                 break;
@@ -42,5 +44,10 @@ public class EventListener {
                 System.exit(0);
                 break;
         }
+    }
+
+    @Override
+    public Class<TrayEvent> getHandles() {
+        return TrayEvent.class;
     }
 }

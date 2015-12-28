@@ -23,7 +23,7 @@
  */
 package uk.jamierocks.clock;
 
-import uk.jamierocks.clock.core.EventListener;
+import uk.jamierocks.clock.core.TrayEventHandler;
 import uk.jamierocks.clock.core.SystemTrayManager;
 import uk.jamierocks.eventbus.SimpleEventBus;
 
@@ -56,7 +56,7 @@ public final class Main {
         }
 
         // setup eventbus
-        this.getEventbus().registerListener(new EventListener());
+        this.getEventbus().registerListener(new TrayEventHandler());
     }
 
     public SystemTrayManager getSystemTrayManager() {
