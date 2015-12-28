@@ -23,9 +23,20 @@
  */
 package uk.jamierocks.clock;
 
+import uk.jamierocks.clock.core.SystemTrayManager;
+
+import java.awt.*;
+
 public final class Main {
 
     public static void main(String[] args) {
+        SystemTrayManager stm = new SystemTrayManager();
 
+        try {
+            stm.showIcon();
+        }
+        catch (AWTException e) {
+            e.printStackTrace();
+        }
     }
 }
