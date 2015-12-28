@@ -21,37 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package uk.jamierocks.clock.core.event.tray;
+package uk.jamierocks.clock.core;
 
-import uk.jamierocks.clock.core.event.Event;
+import uk.jamierocks.clock.core.event.tray.TrayEvent;
+import uk.jamierocks.eventbus.Listener;
 
 /**
- * Represents a tray event.
+ * The event listener.
  */
-public class TrayEvent implements Event {
+public class EventListener {
 
-    private final TrayEventType type;
-
-    public TrayEvent(TrayEventType type) {
-        this.type = type;
-    }
-
-    /**
-     * Gets the type of the event.
-     *
-     * @return The {@link TrayEventType}.
-     */
-    public TrayEventType getType() {
-        return this.type;
-    }
-
-    /**
-     * Represents the various buttons that may be clicked.
-     */
-    public enum TrayEventType {
-
-        TOGGLE_VISABLIITY,
-        ALARM_OVERVIEW,
-        CLOSE
+    @Listener
+    public void onTrayEvent(TrayEvent event) {
+        switch (event.getType()) {
+            case TOGGLE_VISABLIITY:
+                break;
+            case ALARM_OVERVIEW:
+                break;
+            case CLOSE:
+                System.exit(0);
+                break;
+        }
     }
 }

@@ -23,20 +23,47 @@
  */
 package uk.jamierocks.clock;
 
+import uk.jamierocks.clock.core.EventListener;
 import uk.jamierocks.clock.core.SystemTrayManager;
+import uk.jamierocks.eventbus.SimpleEventBus;
 
 import java.awt.*;
 
 public final class Main {
 
-    public static void main(String[] args) {
-        SystemTrayManager stm = new SystemTrayManager();
+    private static Main INSTANCE;
 
+    private final SystemTrayManager systemTrayManager;
+    private final SimpleEventBus eventbus;
+
+    public static Main getInstance() {
+        return INSTANCE;
+    }
+
+    public static void main(String[] args) {
+        INSTANCE = new Main();
+    }
+
+    public Main() {
+        this.systemTrayManager = new SystemTrayManager();
+        this.eventbus = new SimpleEventBus();
+
+        // setup system tray
         try {
-            stm.showIcon();
-        }
-        catch (AWTException e) {
+            this.systemTrayManager.showIcon();
+        } catch (AWTException e) {
             e.printStackTrace();
         }
+
+        // setup eventbus
+        this.getEventbus().registerListener(new EventListener());
+    }
+
+    public SystemTrayManager getSystemTrayManager() {
+        return systemTrayManager;
+    }
+
+    public SimpleEventBus getEventbus() {
+        return eventbus;
     }
 }
