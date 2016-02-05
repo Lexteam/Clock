@@ -30,7 +30,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.net.URL;
+
+import static com.google.common.io.Resources.getResource;
 
 public class SystemTrayManager {
     private final SystemTray systemTray;
@@ -38,12 +44,12 @@ public class SystemTrayManager {
 
     public SystemTrayManager(){
         systemTray = SystemTray.getSystemTray();
-        trayIcon = new TrayIcon(createImage("icon.png", "tray icon"));
+        trayIcon = createSizedTrayIcon("src/main/resources/icon.png", 16, 16);
 
         PopupMenu menu = new PopupMenu();
 
         MenuItem alarmsItem = new MenuItem("Alarms");
-        MenuItem visibilityItem = new MenuItem("ToggleVisibility");
+        MenuItem visibilityItem = new MenuItem("Toggle Visibility");
         MenuItem quitItem = new MenuItem("Quit");
 
         menu.add(alarmsItem);
@@ -83,13 +89,11 @@ public class SystemTrayManager {
         systemTray.add(trayIcon);
     }
 
-    protected static Image createImage(String path, String description) {
-        URL pathURL = Main.class.getClassLoader().getResource(path);
-        if (pathURL == null) {
-            System.err.println("Resource not found: " + path);
-            return null;
-        } else {
-            return (new ImageIcon(pathURL, description)).getImage();
-        }
+    private static TrayIcon createSizedTrayIcon(String file, int width, int height){
+        Image img = new ImageIcon(file).getImage();
+        BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+        Graphics g = bi.createGraphics();
+        g.drawImage(img, 0, 0, width, height, null);
+        return new TrayIcon(new ImageIcon(bi).getImage());
     }
 }
