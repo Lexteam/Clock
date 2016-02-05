@@ -36,9 +36,11 @@ public class TrayEventHandler implements IDedicatedListener<TrayEvent> {
     @Override
     public void process(TrayEvent event) {
         switch (event.getType()) {
-            case TOGGLE_VISABLIITY:
+            case TOGGLE_CLOCK_PANEL:
+                // display corner clock panel
                 break;
-            case ALARM_OVERVIEW:
+            case TOGGLE_ALARM_OVERVIEW_PANEL:
+                // display alarm overview panel
                 break;
             case CLOSE:
                 System.exit(0);

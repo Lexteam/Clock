@@ -31,12 +31,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.net.URL;
-
-import static com.google.common.io.Resources.getResource;
 
 public class SystemTrayManager {
     private final SystemTray systemTray;
@@ -48,7 +42,7 @@ public class SystemTrayManager {
 
         PopupMenu menu = new PopupMenu();
 
-        MenuItem alarmsItem = new MenuItem("Alarms");
+        MenuItem alarmsItem = new MenuItem("Alarm Overview");
         MenuItem visibilityItem = new MenuItem("Toggle Visibility");
         MenuItem quitItem = new MenuItem("Quit");
 
@@ -61,11 +55,11 @@ public class SystemTrayManager {
         ActionListener listener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 MenuItem item = (MenuItem)e.getSource();
-                if (item.getLabel().equals("Alarms")) {
-                    Main.getInstance().getEventbus().post(new TrayEvent(TrayEvent.TrayEventType.ALARM_OVERVIEW));
+                if (item.getLabel().equals("Alarm Overview")) {
+                    Main.getInstance().getEventbus().post(new TrayEvent(TrayEvent.TrayEventType.TOGGLE_ALARM_OVERVIEW_PANEL));
                 }
-                else if (item.getLabel().equals("ToggleVisibility")) {
-                    Main.getInstance().getEventbus().post(new TrayEvent(TrayEvent.TrayEventType.TOGGLE_VISABLIITY));
+                else if (item.getLabel().equals("Toggle Visibility")) {
+                    Main.getInstance().getEventbus().post(new TrayEvent(TrayEvent.TrayEventType.TOGGLE_CLOCK_PANEL));
                 }
                 else if (item.getLabel().equals("Quit")) {
                     Main.getInstance().getEventbus().post(new TrayEvent(TrayEvent.TrayEventType.CLOSE));

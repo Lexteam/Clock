@@ -50,8 +50,8 @@ public class TrayEvent implements Event {
      */
     public enum TrayEventType {
 
-        TOGGLE_VISABLIITY,
-        ALARM_OVERVIEW,
+        TOGGLE_CLOCK_PANEL,
+        TOGGLE_ALARM_OVERVIEW_PANEL,
         CLOSE
     }
 }
